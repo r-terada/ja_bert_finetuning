@@ -8,8 +8,6 @@
 |jrte-sentiment|other|32|5e-5|10|64|
 |jrte-entailment|electra|32|1e-4|10|64|
 |jrte-entailment|other|32|5e-5|10|64|
-|stockmark-ner|electra|32|1e-4|20|256|
-|stockmark-ner|other|32|5e-5|20|256|
 
 ## 数値評価
 
@@ -22,6 +20,7 @@ script: sentiment.py
 |-----|--------|--------|----|-----------------------|
 |cl-tohoku/bert-base-japanese-v2|0.8186|0.8590|0.8590|101.7830|
 |cl-tohoku/bert-base-japanese-v2(128)|0.8033|0.8445|0.8445|81.465|
+|cl-tohoku/bert-base-japanese-v2(512)|0.7971|0.8354|0.8354|33.49|
 |cl-tohoku/bert-base-japanese-whole-word-masking|0.8179|0.8517|0.8517|100.6520|
 |cl-tohoku/bert-large-japanese|0.8032|0.8481|0.8481|37.1100|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8392|0.8752|0.8752|98.9070|
