@@ -16,7 +16,7 @@
 
 ### jrte-sentimenft
 
-script: sentiment.py
+script: jrte/sentiment.py
 
 |model|macro-f1|micro-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
@@ -29,7 +29,7 @@ script: sentiment.py
 
 ### jrte-entailment
 
-script: entailment.py
+script: jrte/entailment.py
 
 |model|macro-f1|micro-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
@@ -42,7 +42,7 @@ script: entailment.py
 
 ### stockmark-ner
 
-script: train_bio.py
+script: stockmark_ner/train_bio.py
 
 |model|overall-f1|acc.|test_samples_per_second|
 |-----|--|----|-----------------------|
@@ -53,5 +53,9 @@ script: train_bio.py
 |nlp-waseda/roberta-base-japanese|0.7290|0.9474|524.0580|
 |izumi-lab/electra-base-japanese-discriminator|0.5484|0.8969|370.3680|
 
-※ it should be higher than ~0.8 with f1, there may be bugs in my training script...
-cf.) using train_bio_pl.py, which is derived from https://github.com/stockmarkteam/bert-book/blob/master/Chapter8.ipynb, tohoku-large-bert accomplish f1=0.86
+※ nlp-waseda/roberta do NOT use model subword-tokenizer to tokenize
+  because it performe better tokenize tokens only with Jumanpp...
+
+※ it should be higher than ~0.8 with f1, there may be bugs in my training script... (maybe around subword-alignment)
+cf.) using stockmark_ner/train_bio_pl.py, which is derived from https://github.com/stockmarkteam/bert-book/blob/master/Chapter8.ipynb, tohoku-large-bert accomplish f1=0.86
+
