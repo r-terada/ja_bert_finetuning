@@ -21,6 +21,7 @@ script: sentiment.py
 |model (max_length)|macro-f1|micro-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
 |cl-tohoku/bert-base-japanese-v2|0.8186|0.8590|0.8590|101.7830|
+|cl-tohoku/bert-base-japanese-v2(128)|0.8033|0.8445|0.8445|101.7830|
 |cl-tohoku/bert-base-japanese-whole-word-masking|0.8179|0.8517|0.8517|100.6520|
 |cl-tohoku/bert-large-japanese|0.8032|0.8481|0.8481|37.1100|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8392|0.8752|0.8752|98.9070|
