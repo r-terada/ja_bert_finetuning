@@ -2,7 +2,7 @@
 
 ## ハイパーパラメータ
 
-|task|model|batch_size|initial_learning_rate|max_epoch|max_length|
+|task|model|batch_size|initial_learning_rate|max_epoch|max_length(default)|
 |----|-----|----------|---------------------|---------|----------|
 |jrte-sentiment|electra|32|1e-4|10|64|
 |jrte-sentiment|other|32|5e-5|10|64|
@@ -20,14 +20,14 @@ script: sentiment.py
 
 |model(max_length)|macro-f1|micro-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
-|cl-tohoku/bert-base-japanese-v2(64)|0.8186|0.8590|0.8590|101.7830|
-|cl-tohoku/bert-base-japanese-whole-word-masking(64)|0.8179|0.8517|0.8517|100.6520|
-|cl-tohoku/bert-large-japanese(64)|0.8032|0.8481|0.8481|37.1100|
-|megagonlabs/transformers-ud-japanese-electra-base-discriminator(64) |0.8392|0.8752|0.8752|98.9070|
+|cl-tohoku/bert-base-japanese-v2|0.8186|0.8590|0.8590|101.7830|
+|cl-tohoku/bert-base-japanese-whole-word-masking|0.8179|0.8517|0.8517|100.6520|
+|cl-tohoku/bert-large-japanese|0.8032|0.8481|0.8481|37.1100|
+|megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8392|0.8752|0.8752|98.9070|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(128)|0.8594|0.8897|0.8897|80.4180|
-|nlp-waseda/roberta-base-japanese(64) |0.8432|0.8770|0.8770|99.3320|
+|nlp-waseda/roberta-base-japanese|0.8432|0.8770|0.8770|99.3320|
 |nlp-waseda/roberta-base-japanese(128)|0.8496|0.8770|0.8770|81.7610|
-|izumi-lab/electra-base-japanese-discriminator(64)|0.8097|0.8499|0.8499|99.4560|
+|izumi-lab/electra-base-japanese-discriminator|0.8097|0.8499|0.8499|99.4560|
 
 ### jrte-entailment
 
