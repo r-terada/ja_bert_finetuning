@@ -25,8 +25,10 @@ script: sentiment.py
 |cl-tohoku/bert-large-japanese|0.8032|0.8481|0.8481|37.1100|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8392|0.8752|0.8752|98.9070|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(128)|**0.8594**|**0.8897**|**0.8897**|80.4180|
+|megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8530|0.8807|0.8897|33.2370|
 |nlp-waseda/roberta-base-japanese|0.8432|0.8770|0.8770|99.3320|
 |nlp-waseda/roberta-base-japanese(128)|_0.8496_|_0.8770_|_0.8770_|81.7610|
+|nlp-waseda/roberta-base-japanese(512)|_0.8576_|_0.8843_|_0.8843_|33.4360|
 |izumi-lab/electra-base-japanese-discriminator|0.8097|0.8499|0.8499|99.4560|
 
 ### jrte-entailment
