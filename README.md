@@ -41,13 +41,3 @@ script: entailment.py
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8970|0.9042|0.9042|99.2990|
 |nlp-waseda/roberta-base-japanese|0.8915|0.9005|0.9005|100.3370|
 |izumi-lab/electra-base-japanese-discriminator|0.8885|0.8969|0.8969|98.8900|
-
-### max-length tuning on sentiment
-
-|model|macro-f1|micro-f1|acc.|test_samples_per_second|
-|-----|--------|--------|----|-----------------------|
-|waseda-maxlen64|0.8432|0.8770|0.8770|99.3320|
-|waseda-maxlen128|0.8496|0.8770|0.8770|81.7610|
-|megagon-maxlen64|0.8392|0.8752|0.8752|98.9070|
-|megagon-maxlen128|0.8594|0.8897|0.8897|80.4180|
-
