@@ -37,9 +37,9 @@ script: entailment.py
 |cl-tohoku/bert-base-japanese-v2|0.8951|0.9024|0.9024|81.8640|
 |cl-tohoku/bert-base-japanese-v2(512)|__0.8959__|__0.9042__|__0.9042__|33.4770|
 |cl-tohoku/bert-base-japanese-whole-word-masking|0.8938|0.9024|0.9024|79.6210|
-|cl-tohoku/bert-large-japanese|0.9017|0.9096|0.9096|26.7530|
+|cl-tohoku/bert-large-japanese|__0.9017__|__0.9096__|__0.9096__|26.7530|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8915|0.8987|0.8987|79.6810|
-|megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|__0.8936__|__0.9024__|__0.9024__|33.4070|
+|megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8936|0.9024|0.9024|33.4070|
 |nlp-waseda/roberta-base-japanese|**0.8984**|**0.9060**|**0.9060**|82.0670|
 |nlp-waseda/roberta-base-japanese(512)|0.8933|0.9024|0.9024|33.4800|
 |izumi-lab/electra-base-japanese-discriminator|0.8917|0.9005|0.9005|79.1110|
