@@ -32,12 +32,13 @@ script: jrte/sentiment.py
 
 script: entailment.py
 
-|model|macro-f1|micro-f1|acc.|test_samples_per_second|
+|model(maxlen)|macro-f1|micro-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
 |cl-tohoku/bert-base-japanese-v2|0.8951|0.9024|0.9024|81.8640|
 |cl-tohoku/bert-base-japanese-v2(512)|__0.8959__|__0.9042__|__0.9042__|33.4770|
 |cl-tohoku/bert-base-japanese-whole-word-masking|0.8938|0.9024|0.9024|79.6210|
 |cl-tohoku/bert-large-japanese|__0.9017__|__0.9096__|__0.9096__|26.7530|
+|cl-tohoku/bert-large-japanese(512, batch_size=16)|0.8846|0.8933|0.8933|8.0640|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8915|0.8987|0.8987|79.6810|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8936|0.9024|0.9024|33.4070|
 |nlp-waseda/roberta-base-japanese|**0.8984**|**0.9060**|**0.9060**|82.0670|
