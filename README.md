@@ -27,7 +27,7 @@ script: jrte/sentiment.py
 |nlp-waseda/roberta-base-japanese|0.8496|0.8770|0.8770|81.7610|
 |nlp-waseda/roberta-base-japanese(512)|**0.8576**|**0.8843**|**0.8843**|33.4360|
 |izumi-lab/electra-base-japanese-discriminator|0.8116|0.8463|0.8463|80.2210|
-|sentiment/chiTra-1|0.8214|0.8608|0.8608|77.5350|
+|chiTra-1|0.8214|0.8608|0.8608|77.5350|
 
 ### jrte-entailment
 
@@ -45,6 +45,6 @@ script: entailment.py
 |nlp-waseda/roberta-base-japanese|**0.8984**|**0.9060**|**0.9060**|82.0670|
 |nlp-waseda/roberta-base-japanese(512)|0.8933|0.9024|0.9024|33.4800|
 |izumi-lab/electra-base-japanese-discriminator|0.8917|0.9005|0.9005|79.1110|
-|entailment/chiTra-1|**0.9054**|**0.9132**|**0.9132**|78.5920|
-|entailment/chiTra-1(512)|**0.9052**|**0.9132**|**0.9132**|32.7880|
+|chiTra-1|**0.9054**|**0.9132**|**0.9132**|78.5920|
+|chiTra-1(512)|**0.9052**|**0.9132**|**0.9132**|32.7880|
 
