@@ -12,7 +12,8 @@ import torch
 from datasets import load_metric
 from pyknp import Juman
 from sudachitra import ElectraSudachipyTokenizer
-from transformers import (AutoConfig, AutoModelForSequenceClassification,
+from sudachitra.tokenization_bert_sudachipy import BertSudachipyTokenizer
+from transformers import (AutoConfig, BertConfig, AutoModelForSequenceClassification, BertForSequenceClassification,
                           AutoTokenizer, Trainer, TrainingArguments)
 
 
@@ -26,6 +27,7 @@ def get_opts() -> argparse.Namespace:
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--max-len", type=int, default=64)
     parser.add_argument("--lr", type=float, default=0.001)
+    parser.add_argument("--warmup-ratio", type=float, default=0.0)
     return parser.parse_args()
 
 
@@ -38,15 +40,20 @@ def seed_everything(seed_value=42):
 
 
 def compute_metrics(p):
-    predictions, labels = p
-    predictions = np.argmax(predictions, axis=1)
+    raw_pred, labels = p
+    predictions = np.argmax(raw_pred, axis=1)
     
-    return {
+    result = {
         "macro_f1": load_metric("f1").compute(predictions=predictions, references=labels, average="macro")["f1"],
         "micro_f1": load_metric("f1").compute(predictions=predictions, references=labels, average="micro")["f1"],
         "weighted_f1": load_metric("f1").compute(predictions=predictions, references=labels, average="weighted")["f1"],
         "accuracy": load_metric("accuracy").compute(predictions=predictions, references=labels)["accuracy"],
+        "p=0": sum(predictions == 0),
+        "p=1": sum(predictions == 1),
+        "p=2": sum(predictions == 2),
     }
+
+    return result
 
 
 def write_predictions(path, output, df_tr):
@@ -89,15 +96,14 @@ def main():
     seed_everything(42)
 
     model_name = opts.model_name
-    # model_name = "megagonlabs/transformers-ud-japanese-electra-base-discriminator"
-    # model_name = "izumi-lab/electra-base-japanese-discriminator"
-    # model_name = "cl-tohoku/bert-base-japanese-whole-word-masking"
-    # model_name = "cl-tohoku/bert-base-japanese-v2"
-    # model_name = "cl-tohoku/bert-large-japanese"
-    # model_name = "nlp-waseda/roberta-base-japanese"
 
-    if model_name == "megagonlabs/transformers-ud-japanese-electra-base-discriminator":
+    if (
+        model_name == "megagonlabs/transformers-ud-japanese-electra-base-discriminator"
+        or model_name.endswith("electra-base-japanese-mc4")
+    ):
         tokenizer = ElectraSudachipyTokenizer.from_pretrained(model_name)
+    elif model_name.endswith("chiTra-1.0"):
+        tokenizer = BertSudachipyTokenizer.from_pretrained(model_name)
     else:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
 
@@ -106,13 +112,26 @@ def main():
     else:
         juman = None
 
-    config = AutoConfig.from_pretrained(model_name, num_labels=3)
-    model = AutoModelForSequenceClassification.from_pretrained(model_name, config=config)
+    if model_name.endswith("chiTra-1.0"):
+        config = BertConfig.from_pretrained(model_name, num_labels=3)
+        model = BertForSequenceClassification.from_pretrained(model_name, config=config)
+    else:
+        config = AutoConfig.from_pretrained(model_name, num_labels=3)
+        model = AutoModelForSequenceClassification.from_pretrained(model_name, config=config)
 
+    # for p in model.electra.parameters():
+    #     p.requires_grad = False
+
+    param = f"maxlen_{opts.max_len}_bs_{opts.bs}_lr_{opts.lr}_epoch{opts.epochs}_warmup{opts.warmup_ratio}"
     model_output_dir = (
         Path(__file__).parent.resolve()
-        / f"models/sentiment/{model_name}/maxlen_{opts.max_len}_bs_{opts.bs}_lr_{opts.lr}_epoch{opts.epochs}"
+        / f"models/sentiment/{model_name}/{param}"
     )
+    result_dir = (
+        Path(__file__).parent.resolve()
+        / f"results/sentiment/{model_name}/{param}"
+    )
+    result_dir.mkdir(exist_ok=True, parents=True)
 
     df = pd.read_csv(opts.data_path, sep="\t", header=None)
     df.columns = ["id", "sentiment", "text", "reason", "split"]
@@ -146,8 +165,11 @@ def main():
         per_device_train_batch_size=opts.bs,
         per_device_eval_batch_size=opts.bs,
         learning_rate=opts.lr,
+        warmup_ratio=opts.warmup_ratio,
         num_train_epochs=opts.epochs,
         evaluation_strategy="epoch",
+        # evaluation_strategy="steps",
+        # eval_steps=1,
         # save_strategy="no",
         save_strategy="epoch",
         load_best_model_at_end=True,
@@ -169,12 +191,6 @@ def main():
 
     output = trainer.predict(eval_dataset)
     print(output.metrics)
-
-    result_dir = (
-        Path(__file__).parent.resolve()
-        / f"results/sentiment/{model_name}/maxlen_{opts.max_len}_bs_{opts.bs}_lr_{opts.lr}_epoch{opts.epochs}"
-    )
-    result_dir.mkdir(exist_ok=True, parents=True)
 
     with open(result_dir / "test_metrics.json", "w") as fp:
         json.dump(output.metrics, fp)
