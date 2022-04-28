@@ -16,7 +16,7 @@
 
 script: jrte/sentiment.py
 
-|model(max_len)|macro-f1|micro-f1|acc.|test_samples_per_second|
+|model(max_len)|macro-f1|weighted-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
 |cl-tohoku/bert-base-japanese-v2|0.8173|0.8559|0.8590|80.9250|
 |cl-tohoku/bert-base-japanese-v2(512)|0.8438|0.8697|0.8716|33.4410|
@@ -33,7 +33,7 @@ script: jrte/sentiment.py
 
 script: entailment.py
 
-|model(maxlen)|macro-f1|micro-f1|acc.|test_samples_per_second|
+|model(maxlen)|macro-f1|weighted-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
 |cl-tohoku/bert-base-japanese-v2|0.8951|0.9023|0.9024|81.8640|
 |cl-tohoku/bert-base-japanese-v2(512)|**0.8959**|**0.9035**|**0.9042**|33.4770|
