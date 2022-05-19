@@ -6,8 +6,8 @@
 |----|-----|----------|---------------------|---------|----------|
 |jrte-sentiment|electra|32|1e-4|10|128|
 |jrte-sentiment|other|32|5e-5|10|128|
-|jrte-entailment|electra|32|1e-4|10|128|
-|jrte-entailment|other|32|5e-5|10|128|
+|jrte-reputation|electra|32|1e-4|10|128|
+|jrte-reputation|other|32|5e-5|10|128|
 
 ## 数値評価
 
@@ -29,9 +29,9 @@ script: jrte/sentiment.py
 |izumi-lab/electra-base-japanese-discriminator|0.8116|0.8422|0.8463|80.2210|
 |chiTra-1|0.8214|0.8594|0.8608|77.5350|
 
-### jrte-entailment
+### jrte-reputation
 
-script: entailment.py
+script: reputation.py
 
 |model(maxlen)|macro-f1|weighted-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
