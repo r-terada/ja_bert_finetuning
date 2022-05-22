@@ -21,7 +21,7 @@ from transformers import (AutoConfig, BertConfig, AutoModelForSequenceClassifica
 def get_opts() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--data-path", type=Path, default=Path("./data/jrte-corpus/data/rhr.tsv")
+        "--data-path", type=Path, default=Path("./data/jrte-corpus/data/")
     )
     parser.add_argument("--model-name", type=str)
     parser.add_argument("--bs", type=int, default=32)
@@ -29,6 +29,7 @@ def get_opts() -> argparse.Namespace:
     parser.add_argument("--max-len", type=int, default=64)
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--warmup-ratio", type=float, default=0.0)
+    parser.add_argument("--ga-steps", type=int, default=1)
     return parser.parse_args()
 
 
@@ -46,12 +47,10 @@ def compute_metrics(p):
     
     result = {
         "macro_f1": load_metric("f1").compute(predictions=predictions, references=labels, average="macro")["f1"],
-        "micro_f1": load_metric("f1").compute(predictions=predictions, references=labels, average="micro")["f1"],
         "weighted_f1": load_metric("f1").compute(predictions=predictions, references=labels, average="weighted")["f1"],
         "accuracy": load_metric("accuracy").compute(predictions=predictions, references=labels)["accuracy"],
         "p=0": sum(predictions == 0),
         "p=1": sum(predictions == 1),
-        "p=2": sum(predictions == 2),
     }
 
     return result
@@ -60,9 +59,9 @@ def compute_metrics(p):
 def write_predictions(path, output, df_tr):
     predictions = np.argmax(output.predictions, axis=1)
     with open(path, "w") as fp:
-        print("text\tprediction\tlabel", file=fp)
-        for t, l, p in zip(df_tr["text"].values, df_tr["entailment"], predictions):
-            print(f"{t}\t{p}\t{l}", file=fp)
+        print("text_a\ttext_b\tprediction\tlabel", file=fp)
+        for ta, tb, l, p in zip(df_tr["text_a"].values, df_tr["text_b"].values, df_tr["entailment"], predictions):
+            print(f"{ta}\t{tb}\t{p}\t{l}", file=fp)
 
 
 class EntailmentDataset:
@@ -79,14 +78,15 @@ class EntailmentDataset:
         return len(self.labels)
 
 
-def tokenize_func(tokenizer, texts, options, juman=None):
+def tokenize_func(tokenizer, text_a, text_b, options, juman=None):
     if juman:
         def split(x):
             result = juman.analysis(x)
             text = " ".join([mrph.midasi for mrph in result.mrph_list()])
             return text
-        texts = [split(t) for t in texts]
-    return tokenizer(texts, **options)
+        text_a = [split(t) for t in text_a]
+        text_b = [split(t) for t in text_b]
+    return tokenizer(text_a, text_pair=text_b, **options)
 
 
 def main():
@@ -118,7 +118,7 @@ def main():
         config = AutoConfig.from_pretrained(model_name, num_labels=2)
         model = AutoModelForSequenceClassification.from_pretrained(model_name, config=config)
 
-    param = f"maxlen_{opts.max_len}_bs_{opts.bs}_lr_{opts.lr}_epoch{opts.epochs}_warmup{opts.warmup_ratio}"
+    param = f"maxlen_{opts.max_len}_bs_{opts.bs}_lr_{opts.lr}_epoch{opts.epochs}_warmup{opts.warmup_ratio}_gas{opts.ga_steps}"
     model_output_dir = (
         Path(__file__).parent.resolve()
         / f"models/entailment/{model_name}/{param}"
@@ -129,8 +129,11 @@ def main():
     )
     result_dir.mkdir(exist_ok=True, parents=True)
 
-    df = pd.read_csv(opts.data_path, sep="\t", header=None)
-    df.columns = ["id", "entailment", "text", "reason", "split"]
+    dfs = [
+        pd.read_csv(p, sep="\t", header=None) for p in opts.data_path.glob("rte.*")
+    ]
+    df = pd.concat(dfs, axis=0).reset_index(drop=True)
+    df.columns = ["id", "entailment", "text_a", "text_b", "judge", "reason", "split"]
     df_tr = df[df["split"] == "train"]
     df_val = df[df["split"] == "dev"]
     df_te = df[df["split"] == "test"]
@@ -141,15 +144,15 @@ def main():
         max_length=opts.max_len
     )
     train_dataset = EntailmentDataset(
-        encodings=tokenize_func(tokenizer, df_tr["text"].values.tolist(), tokenize_options, juman),
+        encodings=tokenize_func(tokenizer, df_tr["text_a"].values.tolist(), df_tr["text_b"].values.tolist(), tokenize_options, juman),
         labels=df_tr["entailment"].values.tolist()
     )
     valid_dataset = EntailmentDataset(
-        encodings=tokenize_func(tokenizer, df_val["text"].values.tolist(), tokenize_options, juman),
+        encodings=tokenize_func(tokenizer, df_val["text_a"].values.tolist(), df_val["text_b"].values.tolist(), tokenize_options, juman),
         labels=df_val["entailment"].values.tolist()
     )
     eval_dataset = EntailmentDataset(
-        encodings=tokenize_func(tokenizer, df_te["text"].values.tolist(), tokenize_options, juman),
+        encodings=tokenize_func(tokenizer, df_te["text_a"].values.tolist(), df_te["text_b"].values.tolist(), tokenize_options, juman),
         labels=df_te["entailment"].values.tolist()
     )
 
@@ -162,13 +165,13 @@ def main():
         per_device_eval_batch_size=opts.bs,
         learning_rate=opts.lr,
         warmup_ratio=opts.warmup_ratio,
+        gradient_accumulation_steps=opts.ga_steps,
         num_train_epochs=opts.epochs,
         evaluation_strategy="epoch",
         # save_strategy="no",
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="macro_f1",
-        debug="underflow_overflow"
     )
 
     trainer = Trainer(

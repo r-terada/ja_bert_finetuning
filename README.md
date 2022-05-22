@@ -48,3 +48,18 @@ script: reputation.py
 |chiTra-1|**0.9054**|**0.9124**|**0.9132**|78.5920|
 |chiTra-1(512)|**0.9052**|**0.9123**|**0.9132**|32.7880|
 
+### jrte-entailment
+
+script: entailment.py
+
+|model(maxlen)|macro-f1|weighted-f1|acc.|test_samples_per_second|
+|-----|--------|--------|----|-----------------------|
+|cl-tohoku/bert-base-japanese-v2|0.8847|0.8851|0.8850|216.1730|
+|cl-tohoku/bert-large-japanese|0.8879|0.8883|0.8882|55.4650|
+|megagonlabs/transformers-ud-japanese-electra-base-discriminator|**0.8967**|**0.8970**|**0.8969**|212.8540|
+|megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|**0.8965**|**0.8968**|**0.8967**|49.9560|
+|nlp-waseda/roberta-base-japanese|0.9078|0.9080|0.9079|229.9190|
+|nlp-waseda/roberta-base-japanese(512)|**0.9044**|**0.9046**|**0.9045**|206.7950|
+|izumi-lab/electra-base-japanese-discriminator|0.3484|0.3725|0.5346|217.4830|
+|chiTra-1|0.8899|0.8903|0.8902|213.7560|
+
