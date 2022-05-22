@@ -8,6 +8,9 @@
 |jrte-sentiment|other|32|5e-5|10|128|
 |jrte-reputation|electra|32|1e-4|10|128|
 |jrte-reputation|other|32|5e-5|10|128|
+|jrte-entailment|electra|32|1e-4|10|128|
+|jrte-entailment|waseda-roberta|32|1e-5|10|128|
+|jrte-entailment|other|32|5e-5|10|128|
 
 ## 数値評価
 
@@ -56,10 +59,9 @@ script: entailment.py
 |-----|--------|--------|----|-----------------------|
 |cl-tohoku/bert-base-japanese-v2|0.8847|0.8851|0.8850|216.1730|
 |cl-tohoku/bert-large-japanese|0.8879|0.8883|0.8882|55.4650|
-|megagonlabs/transformers-ud-japanese-electra-base-discriminator|**0.8967**|**0.8970**|**0.8969**|212.8540|
-|megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|**0.8965**|**0.8968**|**0.8967**|49.9560|
-|nlp-waseda/roberta-base-japanese|0.9078|0.9080|0.9079|229.9190|
-|nlp-waseda/roberta-base-japanese(512)|**0.9044**|**0.9046**|**0.9045**|206.7950|
-|izumi-lab/electra-base-japanese-discriminator|0.3484|0.3725|0.5346|217.4830|
+|megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8967|0.8970|0.8969|212.8540|
+|megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8965|0.8968|0.8967|49.9560|
+|nlp-waseda/roberta-base-japanese|**0.9078**|**0.9080**|**0.9079**|229.9190|
+|nlp-waseda/roberta-base-japanese(512)|**0.9031**|**0.9034**|**0.9032**|55.5010|
 |chiTra-1|0.8899|0.8903|0.8902|213.7560|
 
