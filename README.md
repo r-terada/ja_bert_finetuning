@@ -2,15 +2,59 @@
 
 ## ハイパーパラメータ
 
-|task|model|batch_size|initial_learning_rate|max_epoch|max_length|
-|----|-----|----------|---------------------|---------|----------|
-|jrte-sentiment|electra|32|1e-4|10|128|
-|jrte-sentiment|other|32|5e-5|10|128|
-|jrte-reputation|electra|32|1e-4|10|128|
-|jrte-reputation|other|32|5e-5|10|128|
-|jrte-entailment|electra|32|1e-4|10|128|
-|jrte-entailment|waseda-roberta|32|1e-5|10|128|
-|jrte-entailment|other|32|5e-5|10|128|
+
+### sentiment
+
+|model|batch_size|initial_learning_rate|gradient_accumulation_steps|max_length|
+|-----|----------|---------------------|---------------------------|----------|
+|bert-base-japanese-v2|32|5e-05|1|128|
+|bert-base-japanese-v2(512)|32|5e-05|1|512|
+|bert-base-japanese-whole-word-masking|32|5e-05|1|128|
+|bert-large-japanese|32|5e-05|1|128|
+|bert-base-japanese-char-v2(512)|16|7e-05|1|512|
+|transformers-ud-japanese-electra-base-discriminator|32|5e-05|1|128|
+|transformers-ud-japanese-electra-base-discriminator(512)|32|5e-05|1|512|
+|roberta-base-japanese|32|5e-05|1|128|
+|roberta-base-japanese(512)|32|5e-05|1|512|
+|roberta-large-japanese|16|2e-05|1|128|
+|roberta-large-japanese(512)|4|1e-05|1|512|
+|electra-base-japanese-discriminator|32|5e-05|1|128|
+|chiTra-1|32|5e-05|1|128|
+
+### reputation
+
+|model|batch_size|initial_learning_rate|gradient_accumulation_steps|max_length|
+|-----|----------|---------------------|---------------------------|----------|
+|bert-base-japanese-v2|32|5e-05|1|128|
+|bert-base-japanese-v2(512)|32|5e-05|1|512|
+|bert-base-japanese-whole-word-masking|32|5e-05|1|128|
+|bert-large-japanese|32|5e-05|1|128|
+|bert-large-japanese(512, batch_size=16)|16|5e-05|1|512|
+|bert-base-japanese-char-v2(512)|16|7e-05|1|512|
+|transformers-ud-japanese-electra-base-discriminator|32|5e-05|1|128|
+|transformers-ud-japanese-electra-base-discriminator(512)|32|5e-05|1|512|
+|roberta-base-japanese|32|5e-05|1|128|
+|roberta-base-japanese(512)|32|5e-05|1|512|
+|roberta-large-japanese|16|2e-05|1|128|
+|roberta-large-japanese(512)|4|1e-05|1|512|
+|electra-base-japanese-discriminator|32|5e-05|1|128|
+|chiTra-1|32|5e-05|1|128|
+|chiTra-1(512)|32|5e-05|1|512|
+
+### entailment
+
+|model|batch_size|initial_learning_rate|gradient_accumulation_steps|max_length|
+|-----|----------|---------------------|---------------------------|----------|
+|bert-base-japanese-v2|32|5e-05|1|128|
+|bert-large-japanese|16|2e-05|1|128|
+|bert-base-japanese-char-v2(512)|16|7e-05|1|512|
+|transformers-ud-japanese-electra-base-discriminator|32|0.0001|1|128|
+|transformers-ud-japanese-electra-base-discriminator(512)|16|0.0001|1|512|
+|roberta-base-japanese|32|1e-05|1|128|
+|roberta-base-japanese(512)|16|1e-05|1|512|
+|roberta-large-japanese|16|7e-06|1|128|
+|roberta-large-japanese(512)|4|5e-06|1|512|
+|chiTra-1|32|5e-05|1|128|
 
 ## 数値評価
 
