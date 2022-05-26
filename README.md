@@ -44,11 +44,11 @@ script: reputation.py
 |cl-tohoku/bert-base-japanese-v2|0.8951|0.9023|0.9024|81.8640|
 |cl-tohoku/bert-base-japanese-v2(512)|0.8959|0.9035|0.9042|33.4770|
 |cl-tohoku/bert-base-japanese-whole-word-masking|0.8938|0.9016|0.9024|79.6210|
-|cl-tohoku/bert-large-japanese|**0.9017**|**0.9089**|**0.9096**|26.7530|
+|cl-tohoku/bert-large-japanese|0.9017|0.9089|0.9096|26.7530|
 |cl-tohoku/bert-large-japanese(512, batch_size=16)|0.8846|0.8928|0.8933|8.0640|
 |cl-tohoku/bert-base-japanese-char-v2(512)|0.8816|0.8912|0.8933|46.5210|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8915|0.8987|0.8987|79.6810|
-|megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|**0.8936**|**0.9015**|**0.9024**|33.4070|
+|megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8936|0.9015|0.9024|33.4070|
 |nlp-waseda/roberta-base-japanese|0.8984|0.9056|0.9060|82.0670|
 |nlp-waseda/roberta-base-japanese(512)|0.8933|0.9013|0.9024|33.4800|
 |nlp-waseda/roberta-large-japanese|0.8918|0.9005|0.9024|54.5010|
