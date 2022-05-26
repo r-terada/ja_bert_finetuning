@@ -25,6 +25,7 @@ script: jrte/sentiment.py
 |cl-tohoku/bert-base-japanese-v2(512)|0.8438|0.8697|0.8716|33.4410|
 |cl-tohoku/bert-base-japanese-whole-word-masking|0.8150|0.8444|0.8499|81.0240|
 |cl-tohoku/bert-large-japanese|0.8026|0.8424|0.8463|26.7780|
+|cl-tohoku/bert-base-japanese-char-v2(512)|0.8106|0.8543|0.8571|46.6490|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|**0.8594**|**0.8889**|**0.8897**|80.4180|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8530|0.8793|0.8807|33.2370|
 |nlp-waseda/roberta-base-japanese|0.8496|0.8719|0.8770|81.7610|
@@ -45,6 +46,7 @@ script: reputation.py
 |cl-tohoku/bert-base-japanese-whole-word-masking|0.8938|0.9016|0.9024|79.6210|
 |cl-tohoku/bert-large-japanese|**0.9017**|**0.9089**|**0.9096**|26.7530|
 |cl-tohoku/bert-large-japanese(512, batch_size=16)|0.8846|0.8928|0.8933|8.0640|
+|cl-tohoku/bert-base-japanese-char-v2(512)|0.8816|0.8912|0.8933|46.5210|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8915|0.8987|0.8987|79.6810|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|**0.8936**|**0.9015**|**0.9024**|33.4070|
 |nlp-waseda/roberta-base-japanese|0.8984|0.9056|0.9060|82.0670|
@@ -63,6 +65,7 @@ script: entailment.py
 |-----|--------|--------|----|-----------------------|
 |cl-tohoku/bert-base-japanese-v2|0.8847|0.8851|0.8850|216.1730|
 |cl-tohoku/bert-large-japanese|0.8879|0.8883|0.8882|55.4650|
+|cl-tohoku/bert-base-japanese-char-v2(512)|0.8813|0.8817|0.8815|49.5860|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8967|0.8970|0.8969|212.8540|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8965|0.8968|0.8967|49.9560|
 |nlp-waseda/roberta-base-japanese|**0.9078**|**0.9080**|**0.9079**|229.9190|
