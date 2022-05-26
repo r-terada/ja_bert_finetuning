@@ -28,7 +28,9 @@ script: jrte/sentiment.py
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|**0.8594**|**0.8889**|**0.8897**|80.4180|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8530|0.8793|0.8807|33.2370|
 |nlp-waseda/roberta-base-japanese|0.8496|0.8719|0.8770|81.7610|
-|nlp-waseda/roberta-base-japanese(512)|**0.8576**|**0.8832**|**0.8843**|33.4360|
+|nlp-waseda/roberta-base-japanese(512)|0.8576|0.8832|0.8843|33.4360|
+|nlp-waseda/roberta-large-japanese|**0.8753**|**0.8928**|**0.8951**|54.8540|
+|nlp-waseda/roberta-large-japanese(512)|0.8572|0.8830|0.8843|13.9060|
 |izumi-lab/electra-base-japanese-discriminator|0.8116|0.8422|0.8463|80.2210|
 |chiTra-1|0.8214|0.8594|0.8608|77.5350|
 
@@ -39,17 +41,19 @@ script: reputation.py
 |model(maxlen)|macro-f1|weighted-f1|acc.|test_samples_per_second|
 |-----|--------|--------|----|-----------------------|
 |cl-tohoku/bert-base-japanese-v2|0.8951|0.9023|0.9024|81.8640|
-|cl-tohoku/bert-base-japanese-v2(512)|**0.8959**|**0.9035**|**0.9042**|33.4770|
+|cl-tohoku/bert-base-japanese-v2(512)|0.8959|0.9035|0.9042|33.4770|
 |cl-tohoku/bert-base-japanese-whole-word-masking|0.8938|0.9016|0.9024|79.6210|
 |cl-tohoku/bert-large-japanese|**0.9017**|**0.9089**|**0.9096**|26.7530|
 |cl-tohoku/bert-large-japanese(512, batch_size=16)|0.8846|0.8928|0.8933|8.0640|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8915|0.8987|0.8987|79.6810|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|**0.8936**|**0.9015**|**0.9024**|33.4070|
-|nlp-waseda/roberta-base-japanese|**0.8984**|**0.9056**|**0.9060**|82.0670|
+|nlp-waseda/roberta-base-japanese|0.8984|0.9056|0.9060|82.0670|
 |nlp-waseda/roberta-base-japanese(512)|0.8933|0.9013|0.9024|33.4800|
+|nlp-waseda/roberta-large-japanese|0.8918|0.9005|0.9024|54.5010|
+|nlp-waseda/roberta-large-japanese(512)|**0.9042**|**0.9110**|**0.9114**|13.8490|
 |izumi-lab/electra-base-japanese-discriminator|0.8917|0.8997|0.9005|79.1110|
 |chiTra-1|**0.9054**|**0.9124**|**0.9132**|78.5920|
-|chiTra-1(512)|**0.9052**|**0.9123**|**0.9132**|32.7880|
+|chiTra-1(512)|0.9052|0.9123|0.9132|32.7880|
 
 ### jrte-entailment
 
@@ -62,6 +66,8 @@ script: entailment.py
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.8967|0.8970|0.8969|212.8540|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator(512)|0.8965|0.8968|0.8967|49.9560|
 |nlp-waseda/roberta-base-japanese|**0.9078**|**0.9080**|**0.9079**|229.9190|
-|nlp-waseda/roberta-base-japanese(512)|**0.9031**|**0.9034**|**0.9032**|55.5010|
+|nlp-waseda/roberta-base-japanese(512)|0.9031|0.9034|0.9032|55.5010|
+|nlp-waseda/roberta-large-japanese|0.9031|0.9034|0.9032|59.8820|
+|nlp-waseda/roberta-large-japanese(512)|0.9047|0.9051|0.9050|13.8870|
 |chiTra-1|0.8899|0.8903|0.8902|213.7560|
 

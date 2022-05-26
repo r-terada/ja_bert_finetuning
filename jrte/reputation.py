@@ -61,11 +61,11 @@ def write_predictions(path, output, df_tr):
     predictions = np.argmax(output.predictions, axis=1)
     with open(path, "w") as fp:
         print("text\tprediction\tlabel", file=fp)
-        for t, l, p in zip(df_tr["text"].values, df_tr["entailment"], predictions):
+        for t, l, p in zip(df_tr["text"].values, df_tr["reputation"], predictions):
             print(f"{t}\t{p}\t{l}", file=fp)
 
 
-class EntailmentDataset:
+class ReputationDataset:
     def __init__(self, encodings, labels):
         self.encodings = encodings
         self.labels = labels
@@ -106,7 +106,10 @@ def main():
     else:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-    if model_name == "nlp-waseda/roberta-base-japanese":
+    if model_name in (
+        "nlp-waseda/roberta-base-japanese",
+        "nlp-waseda/roberta-large-japanese"
+    ):
         juman = Juman()
     else:
         juman = None
@@ -121,16 +124,16 @@ def main():
     param = f"maxlen_{opts.max_len}_bs_{opts.bs}_lr_{opts.lr}_epoch{opts.epochs}_warmup{opts.warmup_ratio}"
     model_output_dir = (
         Path(__file__).parent.resolve()
-        / f"models/entailment/{model_name}/{param}"
+        / f"models/reputation/{model_name}/{param}"
     )
     result_dir = (
         Path(__file__).parent.resolve()
-        / f"results/entailment/{model_name}/{param}"
+        / f"results/reputation/{model_name}/{param}"
     )
     result_dir.mkdir(exist_ok=True, parents=True)
 
     df = pd.read_csv(opts.data_path, sep="\t", header=None)
-    df.columns = ["id", "entailment", "text", "reason", "split"]
+    df.columns = ["id", "reputation", "text", "reason", "split"]
     df_tr = df[df["split"] == "train"]
     df_val = df[df["split"] == "dev"]
     df_te = df[df["split"] == "test"]
@@ -140,17 +143,17 @@ def main():
         truncation=True,
         max_length=opts.max_len
     )
-    train_dataset = EntailmentDataset(
+    train_dataset = ReputationDataset(
         encodings=tokenize_func(tokenizer, df_tr["text"].values.tolist(), tokenize_options, juman),
-        labels=df_tr["entailment"].values.tolist()
+        labels=df_tr["reputation"].values.tolist()
     )
-    valid_dataset = EntailmentDataset(
+    valid_dataset = ReputationDataset(
         encodings=tokenize_func(tokenizer, df_val["text"].values.tolist(), tokenize_options, juman),
-        labels=df_val["entailment"].values.tolist()
+        labels=df_val["reputation"].values.tolist()
     )
-    eval_dataset = EntailmentDataset(
+    eval_dataset = ReputationDataset(
         encodings=tokenize_func(tokenizer, df_te["text"].values.tolist(), tokenize_options, juman),
-        labels=df_te["entailment"].values.tolist()
+        labels=df_te["reputation"].values.tolist()
     )
 
     train_args = TrainingArguments(
@@ -168,7 +171,6 @@ def main():
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="macro_f1",
-        debug="underflow_overflow"
     )
 
     trainer = Trainer(

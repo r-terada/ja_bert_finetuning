@@ -107,7 +107,10 @@ def main():
     else:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-    if model_name == "nlp-waseda/roberta-base-japanese":
+    if model_name in (
+        "nlp-waseda/roberta-base-japanese",
+        "nlp-waseda/roberta-large-japanese",
+    ):
         juman = Juman()
     else:
         juman = None
@@ -174,7 +177,6 @@ def main():
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="macro_f1",
-        debug="underflow_overflow"
     )
 
     trainer = Trainer(
