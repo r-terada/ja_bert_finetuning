@@ -18,9 +18,11 @@ We searched learning_rate between [1e-4, 2e-5] manually, and epoch is early-stop
 
 ## Scores 
 
+scores on the JGLUE dev set.
+
 |Model|MARC_ja|JSTS|JNLI|JSQuAD|JCommonsenseQA|
 |-----|-------|----|----|------|--------------|
 ||acc.|Pearson/Spearman|acc.|EM/F1|acc.|
-|best score|0.964|0.923/0.891|0.924|0.897/0.947|0.901|
+|best score in original baselines|0.964|0.923/0.891|0.924|0.897/0.947|0.901|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|0.963|0.913/0.877|0.921|0.795/0.887|0.856|
 
