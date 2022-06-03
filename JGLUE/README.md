@@ -6,6 +6,8 @@ To use sudachitra as tokenizer for megagonlabs/transformers-ud-japanese-electra-
 Scripts and commands used in the experiments are the same as in the original
 ## Hyperparameters 
 
+We searched learning_rate between [1e-4, 2e-5] manually, and epoch is early-stopped watching dev score.
+
 |Model|dataset|epoch|batch_size|learning rate|warmup ratio|max seq length|
 |-------|-----|-----|----------|-------------|------------|----------|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|MARC_ja|2|16|3e-5|0.1|512|
