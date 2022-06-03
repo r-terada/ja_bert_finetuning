@@ -2,10 +2,11 @@
 
 
 We ran several fine-tuning experiments on [JGLUE](https://github.com/yahoojapan/JGLUE).  
-To use sudachitra as tokenizer for megagonlabs/transformers-ud-japanese-electra-base-discriminator, we added additional diffs to [original patch](https://github.com/yahoojapan/JGLUE/blob/main/fine-tuning/patch/transformers-4.9.2_jglue-1.0.0.patch) and apply it.Modified patch is placed as transformers-4.9.2_jglue-1.0.0.sudachitra.patch
+To use sudachitra as tokenizer for megagonlabs/transformers-ud-japanese-electra-base-discriminator, we added additional diffs to [original patch](https://github.com/yahoojapan/JGLUE/blob/main/fine-tuning/patch/transformers-4.9.2_jglue-1.0.0.patch) and apply it.Modified patch is placed as `transformers-4.9.2_jglue-1.0.0.sudachitra.patch`  
+Scripts and commands used in the experiments are the same as in the original
 ## Hyperparameters 
 
-|model|dataset|epoch|batch_size|learning_rate|warmup_ratio|max_length|
+|Model|dataset|epoch|batch_size|learning rate|warmup ratio|max seq length|
 |-------|-----|-----|----------|-------------|------------|----------|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|MARC_ja|2|16|3e-5|0.1|512|
 ||JSTS|4|16|3e-5|0.1|512|
@@ -15,7 +16,7 @@ To use sudachitra as tokenizer for megagonlabs/transformers-ud-japanese-electra-
 
 ## Scores 
 
-|model|MARC_ja|JSTS|JNLI|JSQuAD|JCommonsenseQA|
+|Model|MARC_ja|JSTS|JNLI|JSQuAD|JCommonsenseQA|
 |-----|-------|----|----|------|--------------|
 ||acc.|Pearson/Spearman|acc.|EM/F1|acc.|
 |best score|0.964|0.923/0.891|0.924|0.897/0.947|0.901|
