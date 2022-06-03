@@ -3,9 +3,9 @@
 |model|dataset|epoch|batch_size|learning_rate|warmup_ratio|max_length|
 |-------|-----|-----|----------|-------------|------------|----------|
 |megagonlabs/transformers-ud-japanese-electra-base-discriminator|MARC_ja|2|16|3e-5|0.1|512|
-|^|JSTS|4|16|3e-5|0.1|512|
-|^|JNLI|3|16|3e-5|0.1|512|
-|^|JSQuAD|5|16|3e-5|0.1|384|
+||JSTS|4|16|3e-5|0.1|512|
+||JNLI|3|16|3e-5|0.1|512|
+|JSQuAD|5|16|3e-5|0.1|384|
 |^|JCommonsenseQA|5|16|1e-4|0.1|64|
 
 ## Scores 
