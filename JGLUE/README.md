@@ -1,3 +1,8 @@
+# Fine-tuning results on JGLUE
+
+
+We ran several fine-tuning experiments on [JGLUE](https://github.com/yahoojapan/JGLUE).  
+To use sudachitra as tokenizer for megagonlabs/transformers-ud-japanese-electra-base-discriminator, we added additional diffs to [original patch](https://github.com/yahoojapan/JGLUE/blob/main/fine-tuning/patch/transformers-4.9.2_jglue-1.0.0.patch) and apply it.Modified patch is placed as transformers-4.9.2_jglue-1.0.0.sudachitra.patch
 ## Hyperparameters 
 
 |model|dataset|epoch|batch_size|learning_rate|warmup_ratio|max_length|
