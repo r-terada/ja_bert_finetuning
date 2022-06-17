@@ -21,7 +21,7 @@ from transformers import (AutoConfig, BertConfig, AutoModelForSequenceClassifica
 def get_opts() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--data-path", type=Path, default=Path("./data/jrte-corpus/data/")
+        "--data-path", type=Path, default=Path("./jrte-corpus/data/")
     )
     parser.add_argument("--model-name", type=str)
     parser.add_argument("--bs", type=int, default=32)
@@ -30,6 +30,7 @@ def get_opts() -> argparse.Namespace:
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--warmup-ratio", type=float, default=0.0)
     parser.add_argument("--ga-steps", type=int, default=1)
+    parser.add_argument("--jumanpp", type=bool, default=False)
     return parser.parse_args()
 
 
@@ -106,10 +107,11 @@ def main():
     else:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
 
+    jumanpp = opts.jumanpp
     if model_name in (
         "nlp-waseda/roberta-base-japanese",
         "nlp-waseda/roberta-large-japanese"
-    ):
+    ) or jumanpp:
         juman = Juman()
     else:
         juman = None

@@ -1,3 +1,16 @@
+# How to use
+
+## Install
+
+- `docker compose build`
+- `docker compose up`
+- `git clone https://github.com/megagonlabs/jrte-corpus`
+
+## Run
+
+- `python jrte/sentiment.py --model-name nlp-waseda/roberta-base-japanese`
+
+
 # 実験結果
 
 ## ハイパーパラメータ
